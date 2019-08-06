@@ -142,7 +142,6 @@ end
 # Just like the `/capture_payment` endpoint, a real implementation would include controls
 # to prevent misuse
 post '/create_setup_intent' do
-  authenticate!
   payload = params
   if request.content_type != nil and request.content_type.include? 'application/json' and params.empty?
       payload = Sinatra::IndifferentHash[JSON.parse(request.body.read)]
@@ -175,6 +174,7 @@ end
 # Just like the `/capture_payment` endpoint, a real implementation would include controls
 # to prevent misuse
 post '/create_intent' do
+  authenticate!
   begin
     payment_intent_id = ENV['DEFAULT_PAYMENT_INTENT_ID']
     if payment_intent_id
@@ -182,9 +182,9 @@ post '/create_intent' do
     else
       payment_intent = create_payment_intent(
         params[:amount],
-        params[:source_id],
-        params[:payment_method_id],
-        params[:customer_id],
+        params[:user_id] || @customer.id,
+        nil,
+        nil,
         params[:metadata],
         params[:currency],
         nil,
@@ -250,7 +250,7 @@ def create_payment_intent(amount, source_id, payment_method_id, customer_id = ni
   return Stripe::PaymentIntent.create(
     :amount => amount,
     :currency => currency || 'usd',
-    :customer => customer_id || @customer.id,
+    :customer => customer_id,
     :source => source_id,
     :payment_method => payment_method_id,
     :payment_method_types => ['card'],
