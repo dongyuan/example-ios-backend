@@ -183,7 +183,7 @@ post '/create_intent' do
         params[:amount],
         nil,
         nil,
-        nil,
+        params[:customer_id],
         params[:metadata],
         params[:currency],
         nil,
