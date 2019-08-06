@@ -174,7 +174,6 @@ end
 # Just like the `/capture_payment` endpoint, a real implementation would include controls
 # to prevent misuse
 post '/create_intent' do
-  authenticate!
   begin
     payment_intent_id = ENV['DEFAULT_PAYMENT_INTENT_ID']
     if payment_intent_id
@@ -182,7 +181,7 @@ post '/create_intent' do
     else
       payment_intent = create_payment_intent(
         params[:amount],
-        params[:user_id] || @customer.id,
+        params[:user_id],
         nil,
         nil,
         params[:metadata],
@@ -250,7 +249,7 @@ def create_payment_intent(amount, source_id, payment_method_id, customer_id = ni
   return Stripe::PaymentIntent.create(
     :amount => amount,
     :currency => currency || 'usd',
-    :customer => customer_id,
+    :customer => customer_id || @customer.id,
     :source => source_id,
     :payment_method => payment_method_id,
     :payment_method_types => ['card'],
