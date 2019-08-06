@@ -174,6 +174,7 @@ end
 # Just like the `/capture_payment` endpoint, a real implementation would include controls
 # to prevent misuse
 post '/create_intent' do
+  authenticate!
   begin
     payment_intent_id = ENV['DEFAULT_PAYMENT_INTENT_ID']
     if payment_intent_id
@@ -183,7 +184,7 @@ post '/create_intent' do
         params[:amount],
         nil,
         nil,
-        nil,
+        params[:customer_id] || @customer.id,
         params[:metadata],
         params[:currency],
         nil,
