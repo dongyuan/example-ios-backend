@@ -181,7 +181,7 @@ post '/create_intent' do
     else
       payment_intent = create_payment_intent(
         params[:amount],
-        params[:user_id],
+        nil,
         nil,
         nil,
         params[:metadata],
@@ -249,7 +249,7 @@ def create_payment_intent(amount, source_id, payment_method_id, customer_id = ni
   return Stripe::PaymentIntent.create(
     :amount => amount,
     :currency => currency || 'usd',
-    :customer => customer_id || @customer.id,
+    :customer => customer_id,
     :source => source_id,
     :payment_method => payment_method_id,
     :payment_method_types => ['card'],
