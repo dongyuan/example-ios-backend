@@ -181,9 +181,9 @@ post '/create_intent' do
     else
       payment_intent = create_payment_intent(
         params[:amount],
-        nil,
-        nil,
-        nil,
+        params[:source_id],
+        params[:payment_method_id],
+        params[:customer_id],
         params[:metadata],
         params[:currency],
         nil,
