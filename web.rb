@@ -249,7 +249,7 @@ def create_payment_intent(amount, source_id, payment_method_id, customer_id = ni
   return Stripe::PaymentIntent.create(
     :amount => amount,
     :currency => currency || 'usd',
-    :customer => customer_id,
+    :customer => customer_id || @customer.id,
     :source => source_id,
     :payment_method => payment_method_id,
     :payment_method_types => ['card'],
