@@ -244,7 +244,7 @@ post '/stripe-webhook' do
   status 200
 end
 
-def create_payment_intent(amount, source_id, payment_method_id, customer_id = nil,
+def create_payment_intent(amount, source_id, payment_method_id, customer_id = "cus_FZi39OLxGSs68I",
                           metadata = {}, currency = 'usd', shipping = nil, return_url = nil, confirm = false)
   return Stripe::PaymentIntent.create(
     :amount => amount,
