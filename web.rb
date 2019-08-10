@@ -262,6 +262,10 @@ def create_payment_intent(amount, source_id, payment_method_id, customer_id = ni
     :confirmation_method => confirm ? "manual" : "automatic",
     :use_stripe_sdk => confirm ? true : nil,
     :capture_method => ENV['CAPTURE_METHOD'] == "manual" ? "manual" : "automatic",
+    :application_fee_amount => 50,
+    :transfer_data => {
+      :destination => 'acct_1CNpFhL1Anrf6JYu',
+    },
     :metadata => {
       :order_id => '5278735C-1F40-407D-933A-286E463E72D8',
     }.merge(metadata || {}),
