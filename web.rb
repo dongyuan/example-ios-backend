@@ -276,8 +276,8 @@ def create_payment_intent(amount, source_id, payment_method_id, customer_id = ni
   amount: amount,
   currency: 'gbp',
   capture_method: 'automatic',
-  confirmation_method: 'automatic'
-  application_fee_amount: 50,
+  confirmation_method: 'automatic',
+  application_fee_amount: 50
 }, stripe_account: 'acct_1CNpFhL1Anrf6JYu')
 end
 
