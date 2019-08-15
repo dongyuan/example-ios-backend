@@ -184,7 +184,7 @@ post '/create_intent' do
       payment_intent = create_payment_intent(
         params[:amount],
         nil,
-        nil,
+        params[:payment_method_id],
         params[:customer_id] || @customer.id,
         params[:metadata],
         params[:currency],
