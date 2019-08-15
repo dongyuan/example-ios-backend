@@ -276,7 +276,6 @@ def create_payment_intent(amount, source_id, payment_method_id, customer_id = ni
   amount: amount,
   currency: 'gbp',
   payment_method: payment_method_id,
-  # customer: customer_id,
   capture_method: 'automatic',
   confirmation_method: 'automatic',
   application_fee_amount: 50
